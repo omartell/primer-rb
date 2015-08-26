@@ -23,7 +23,7 @@ module Primer
           next_number += increment
           increments << increment
         end
-      end.lazy.take(count)
+      end.take(count)
     end
 
     private
