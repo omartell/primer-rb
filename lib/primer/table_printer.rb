@@ -1,28 +1,27 @@
 module Primer
   class TablePrinter
-    attr_reader :rows, :primes, :cell_width
-    private :rows, :primes, :cell_width
+    attr_reader :table, :cell_width
+    private :table, :cell_width
 
-    def initialize(primes:, rows:)
-      @primes = primes
-      @rows = rows
-      @cell_width = rows.last.last.to_s.size
+    def initialize(table)
+      @table = table
+      @cell_width = table.largest_prime.to_s.size
     end
 
-    def print_multiplication_table
+    def print_table
       $stdout.puts(headers)
       $stdout.puts('-' * headers.size)
-      print_table
+      print_rows
     end
 
     private
 
     def headers
-      cell('N') + '| ' + primes.map(&method(:cell)).join(' ')
+      cell('N') + '| ' + table.primes.map(&method(:cell)).join(' ')
     end
 
-    def print_table
-      rows.zip(primes).each do |row, prime|
+    def print_rows
+      table.rows.zip(table.primes).each do |row, prime|
         $stdout.puts(cell(prime) + '| ' + row.map(&method(:cell)).join(' '))
       end
     end
