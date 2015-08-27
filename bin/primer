@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+require 'optparse'
+require_relative './../lib/primer'
+
+options = {}
+opt_parser = OptionParser.new do |opts|
+  opts.banner = "Usage: bin/primer [options]"
+  opts.on("-c C", "--count C", Integer, "Number of prime numbers to generate") do |count|
+    options[:count] = count
+  end
+end
+
+opt_parser.parse!
+
+if options[:count]
+  runner = Primer::Runner.new(count: options[:count])
+  runner.run
+  exit 0
+else
+  puts opt_parser
+end
