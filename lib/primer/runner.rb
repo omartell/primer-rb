@@ -8,10 +8,11 @@ module Primer
     end
 
     def run
-      primes  = Primer::Generator.new(count: count).primes
-      rows    = Primer::MultiplicationTable.new(primes).rows
-      printer = Primer::TablePrinter.new(primes: primes, rows: rows)
-      printer.print_multiplication_table
+      generator = Generator.new
+      primes    = generator.first(count)
+      table     = MultiplicationTable.build_for(primes: primes)
+      printer   = TablePrinter.new(table)
+      printer.print_table
     end
   end
 end
